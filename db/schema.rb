@@ -10,10 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_14_032158) do
+ActiveRecord::Schema.define(version: 2019_07_14_044739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.string "category"
+    t.string "url"
+    t.text "content"
+    t.integer "source_id"
+  end
+
+  create_table "sources", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "stash_articles", force: :cascade do |t|
+    t.integer "stash_id"
+    t.integer "article_id"
+  end
+
+  create_table "stashes", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
+  end
+
+  create_table "stream_sources", force: :cascade do |t|
+    t.integer "stream_id"
+    t.integer "source_id"
+  end
+
+  create_table "streams", force: :cascade do |t|
+    t.integer "user_id"
+    t.datetime "created_at"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
