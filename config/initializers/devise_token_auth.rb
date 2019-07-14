@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-DeviseTokenAuth.setup do |config|
+#DeviseTokenAuth.setup do |config|
     # By default the authorization headers will change after each request. The
     # client is responsible for keeping track of the changing tokens. Change
     # this to false to prevent the Authorization header from changing after
@@ -48,10 +48,10 @@ DeviseTokenAuth.setup do |config|
     # do so by enabling this flag. NOTE: This feature is highly experimental!
     # config.enable_standard_devise_support = false
   
-    OmniAuth.config.logger = Rails.logger
+##    OmniAuth.config.logger = Rails.logger
   
-  Rails.application.config.middleware.use OmniAuth::Builder do
-    provider :google_oauth2, 'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', {client_options: {ssl: {ca_file: Rails.root.join("cacert.pem").to_s}}}
-  end
+#  Rails.application.config.middleware.use OmniAuth::Builder do
+#    provider :google_oauth2, 'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', {client_options: {ssl: {ca_file: Rails.root.join("cacert.pem").to_s}}}
+#  end
   
-  end
+#  end
