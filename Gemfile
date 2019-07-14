@@ -17,7 +17,15 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv'
 gem 'email_validator'
-
+gem 'devise_token_auth'
+gem 'haml'
+gem 'httparty'
+gem 'json'
+gem 'google-id-token'
+gem 'rack-cors', :require => 'rack/cors'
+gem 'devise_token_auth'
+gem 'omniauth-google-oauth2'
+gem 'fast_jsonapi'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
