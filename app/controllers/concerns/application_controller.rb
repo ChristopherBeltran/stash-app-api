@@ -18,7 +18,7 @@ class ApplicationController < ActionController::API
           render json: {error: "unauthorized"}, status: 401 
             unless logged_in?
         end
-
+        
         private
           def token
             request.env["HTTP_AUTHORIZATION"].scan(/Bearer 
