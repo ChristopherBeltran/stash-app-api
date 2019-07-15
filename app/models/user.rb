@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
     #devise :database_authenticatable, :registerable,
     #       :rememberable, :trackable, :validatable
     #include DeviseTokenAuth::Concerns::User
-    include Titleize
     has_secure_password
     has_one :stream
     has_many :stashes
@@ -11,8 +10,12 @@ class User < ActiveRecord::Base
     validates :name, presence: true
     validates :email, presence: true
     validates :email, uniqueness: true
-    before_save :tileize_name
-    before_create :tileize_name
+    validates :name, presence: true
+    before_save :fixname
+  
+    def fixname
+      self.name = self.name.titleize
+    end
 
   
     #def self.create_user_for_google(data)                  
