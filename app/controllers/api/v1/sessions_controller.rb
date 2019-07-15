@@ -1,16 +1,15 @@
-class Api::VI::SessionsController < ApplicationController
+class Api::V1::SessionsController < ApplicationController
+  skip_before_action :authenticate
+
 
     def create
-        @user = User.find_by(email: params[:session][:email])
-        if @user && @user.authenticate(params[:session][:password])
-          session[:user_id] = @user.id
-          render json: UserSerializer.new(@user), status: :ok
-        else
-          render json: {
-            error: "Invalid Credentials"
-          }
-        end
+      user = User.find_by(email: auth_params[:email])
+      if user.authenticate(auth_params[:password])
+        jwt = Auth.issue({user: user.id})
+        render json: {jwt: jwt}
+      else
       end
+    end
     
       def get_current_user
         if logged_in?
@@ -27,6 +26,11 @@ class Api::VI::SessionsController < ApplicationController
         render json: {
           notice: "successfully logged out"
         }, status: :ok
+      end
+
+      private
+      def auth_params
+        params.require(:auth).permit(:email, :password)
       end
 
 end

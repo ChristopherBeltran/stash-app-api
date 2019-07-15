@@ -10,6 +10,12 @@ class User < ActiveRecord::Base
     validates :name, presence: true
     validates :email, presence: true
     validates :email, uniqueness: true
+    validates :name, presence: true
+    before_save :fixname
+  
+    def fixname
+      self.name = self.name.titleize
+    end
 
   
     #def self.create_user_for_google(data)                  
