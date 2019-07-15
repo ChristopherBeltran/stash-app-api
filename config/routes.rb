@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do 
       resources :users
+      resources :streams
+      resources :stashes
+      resources :articles
+      resources :sources
     end 
   end 
 end
