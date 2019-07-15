@@ -20,6 +20,7 @@ class Api::V1::UsersController < ApplicationController
       render json: {
         notice: "Successfully created #{@user.name}"
       }, status: :ok
+      session[:user_id] = @user.id
     else
       render json: @user.errors, status: :unprocessable_entity
     end
