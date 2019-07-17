@@ -7,6 +7,9 @@ class Api::V1::SessionsController < ApplicationController
         session[:user_id] = user.id
         render json: {status: 'Successfully logged in.'}
       else
+        render json: {
+          error: 'Invalid email or password'
+        }
       end
     end
     
@@ -23,7 +26,7 @@ class Api::V1::SessionsController < ApplicationController
       def destroy
         session.clear
         render json: {
-          notice: "successfully logged out"
+          notice: "Successfully logged out"
         }, status: :ok
       end
 
