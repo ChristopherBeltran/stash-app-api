@@ -3,9 +3,9 @@ class Api::V1::StreamsController < ApplicationController
 
   # GET /streams
   # GET /streams.json
-  def index
-    @streams = Stream.all
-  end
+  #def index
+  #@streams = Stream.all
+  #end
 
   # GET /streams/1
   # GET /streams/1.json
@@ -49,9 +49,9 @@ class Api::V1::StreamsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_stream
-      @stream = Stream.find(params[:id])
-    end
+    #def set_stream
+    #  @stream = Stream.find(params[:id])
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stream_params
