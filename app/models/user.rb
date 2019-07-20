@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
     #include DeviseTokenAuth::Concerns::User
     has_secure_password
     has_one :stream
-    has_many :stashes
+    has_one :stash
     has_many :articles, through: :stashes
     validates :name, presence: true
     validates :email, presence: true

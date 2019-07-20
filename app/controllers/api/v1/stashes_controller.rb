@@ -3,8 +3,8 @@ class Api::V1::StashesController < ApplicationController
 
     def index
         if logged_in?
-           @stashes = current_user.stashes
-           render json: StashSerializer.new(@stashes), status: :ok
+           @stash = current_user.stash
+           render json: StashSerializer.new(@stash), status: :ok
         else 
             render json: {
                 error: 'Must be signed in to view stashes'
@@ -51,7 +51,7 @@ class Api::V1::StashesController < ApplicationController
         end
     
         def stash_params
-          params.require (:stash).permit(:name, :user_id)
+          params.require (:stash).permit(:user_id)
         end
         
 end
