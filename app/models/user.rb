@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
     has_secure_password
     has_one :stream
     has_one :stash
-    has_many :articles, through: :stashes
+    #has_many :articles, through: :stashes
     validates :name, presence: true
     validates :email, presence: true
     validates :email, uniqueness: true

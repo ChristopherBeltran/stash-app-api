@@ -4,4 +4,12 @@ class Stash < ActiveRecord::Base
     has_many :articles, through: :stash_articles
     has_many :sources, through: :articles
 
+
+    def article_attributes=(article_attributes)
+        if article_attributes[:url] != ""
+            article = Article.find_or_create_by(article_attributes)
+            self.articles << article
+        end 
+    end 
+
 end 
