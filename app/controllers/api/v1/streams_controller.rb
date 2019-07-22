@@ -35,7 +35,7 @@ class Api::V1::StreamsController < ApplicationController
   # PATCH/PUT /streams/1.json
   def update
     if @stream.update(stream_params)
-      render :show, status: :ok, location: @stream
+      render :json StreamSerializer.new(@stream). status: :ok
     else
       render json: @stream.errors, status: :unprocessable_entity
     end
@@ -49,9 +49,9 @@ class Api::V1::StreamsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    #def set_stream
-    #  @stream = Stream.find(params[:id])
-    #end
+    def set_stream
+      @stream = Stream.find(params[:id])
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stream_params
