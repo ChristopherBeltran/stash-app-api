@@ -20,15 +20,6 @@ Bundler.require(*Rails.groups)
 module StashAppApi
   class Application < Rails::Application
     config.api_only = true
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', 
-         :headers => :any, 
-         :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-         :methods => [:get, :post, :patch, :delete, :options]
-      end
-    end
       config.middleware.use ActionDispatch::Cookies
       config.middleware.use ActionDispatch::Session::CookieStore
       config.autoload_paths << Rails.root.join('lib')
