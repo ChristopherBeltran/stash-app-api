@@ -5,7 +5,7 @@ class Api::V1::SessionsController < ApplicationController
       if user.authenticate(auth_params[:password])
         #jwt = Auth.issue({user: user.id})
         session[:user_id] = user.id
-        render json: UserSerializer.new(current_user), status: :ok
+        render json: UserSerializer.new(user), status: :ok
       else
         render json: {
           error: 'Invalid email or password'
