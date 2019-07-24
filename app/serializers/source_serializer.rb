@@ -1,4 +1,4 @@
 class SourceSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :name
+    attributes :name, :description
 end

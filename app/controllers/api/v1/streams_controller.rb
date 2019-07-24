@@ -41,12 +41,12 @@ class Api::V1::StreamsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_stream
-      @stream = Stream.find(params[:id])
+      @stream = current_user.stream
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stream_params
-      params.require(:stream).permit(:user_id, source_ids:[], source_attributes: [:name])
+      params.require(:stream).permit(:user_id, source_ids:[])
     end
 
 end
