@@ -26,8 +26,9 @@ class Api::V1::StreamsController < ApplicationController
   # PATCH/PUT /streams/1.json
   def update
     if @stream.update(stream_params)
+      options = {}
       options[:include] = [:sources, :'sources.name', :'sources.api_id']
-      render json: StreamSerializer.new(@stream), status: :ok
+      render json: StreamSerializer.new(@stream, options), status: :ok
     else
       render json: @stream.errors, status: :unprocessable_entity
     end
