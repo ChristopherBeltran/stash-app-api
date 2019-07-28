@@ -1,5 +1,10 @@
 require 'httparty'
 
+def strip_url(target_url)
+    target_url.gsub("http://", "")
+              .gsub("https://", "")
+              .gsub("www.", "")
+  end
 
 namespace :news_api do
     desc "Fetches all news sources from News API and creates Source objects out of them and persists to DB"
@@ -11,6 +16,8 @@ namespace :news_api do
             s.name = source["name"]
             s.description = source["description"]
             s.api_id = source["id"]
+            s_url = strip_url(source["url"])
+            s.url = s_url
             s.save
         end
     end 
