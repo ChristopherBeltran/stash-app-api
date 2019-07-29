@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post "/api/v1/signup", to: "api/v1/users#create"
   delete "/api/v1/logout", to: "api/v1/sessions#destroy"
   get "/api/v1/get_current_user", to: "api/v1/sessions#get_current_user"
+  get "/api/v1/get_stream", to: "api/v1/streams#get_stream"
 
   namespace :api do
     namespace :v1 do 

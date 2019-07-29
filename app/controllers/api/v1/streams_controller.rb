@@ -34,6 +34,10 @@ class Api::V1::StreamsController < ApplicationController
     end
   end
 
+  def get_stream
+  end 
+  
+
   # DELETE /streams/1
   # DELETE /streams/1.json
   def destroy
