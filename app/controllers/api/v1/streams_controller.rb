@@ -1,5 +1,7 @@
+require 'httparty'
+
 class Api::V1::StreamsController < ApplicationController
-  before_action :set_stream, only: [:show, :update, :destroy]
+  before_action :set_stream, only: [:show, :update, :destroy, :get_stream]
 
 
   def create
@@ -35,8 +37,16 @@ class Api::V1::StreamsController < ApplicationController
   end
 
   def get_stream
+    api_ids = []
+    @stream.sources.each do |source|
+      api_ids << source.api_id
+    end
+    formatted_ids = api_ids.join(",")
+    api_key = ENV["NEWS_API_SECRET"]
+    response = HTTParty.get("https://newsapi.org/v2/top-headlines?sources=#{formatted_ids}&apiKey=#{api_key}")
+    render json: response, status: 200 
   end 
-  
+
 
   # DELETE /streams/1
   # DELETE /streams/1.json
@@ -52,7 +62,7 @@ class Api::V1::StreamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stream_params
-      params.require(:stream).permit(:user_id, source_ids:[])
+      params.require(:stream).permit(:user_id, source_ids:[], source_api_ids:[])
     end
 
 end
