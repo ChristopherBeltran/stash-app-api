@@ -22,6 +22,7 @@ class Stash < ActiveRecord::Base
                 article.author = article_attributes[:author]
             end 
             article.content = article_attributes[:content]
+            article.published_at = article_attributes[:published_at]
             article.source = source
             article.save
             self.articles << article
