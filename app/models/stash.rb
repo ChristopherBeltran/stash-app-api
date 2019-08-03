@@ -8,8 +8,13 @@ class Stash < ActiveRecord::Base
 
     def article_attributes=(article_attributes)
         if article_attributes[:url] != ""
-            article = Article.find_or_create_by(article_attributes)
+            if Article.exists?(url === article_attributes[:url])
+                article = Article.find(url: article_attributes[:url])
+                self.articles << article
+            else
+            article = Article.create(article_attributes)
             self.articles << article
+            end 
         end 
     end 
 
