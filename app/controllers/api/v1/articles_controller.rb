@@ -40,6 +40,6 @@ def create
 
   private
     def article_params
-      params.require(:article).permit(:title, :category, :url, :content, :source_id)
+      params.require(:article).permit(:title, :url, :content, :url_to_image, :description, :published_at, :source_id)
     end
 end 
