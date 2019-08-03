@@ -1,24 +1,13 @@
 class Api::V1::StashesController < ApplicationController
     before_action :set_stream, only: [:update, :destroy]
 
-    def index
-        if logged_in?
-           @stash = current_user.stash
-           render json: StashSerializer.new(@stash), status: :ok
-        else 
-            render json: {
-                error: 'Must be signed in to view stashes'
-            }
-        end 
-    end
-    
     def show
         if logged_in?
-            @stash = Stash.find(params[:id])
-            render :json StashSerializer.new(@stash), status: :ok
+            @stash = current_user.stash
+            render json: StashSerializer.new(@stash), status: :ok
         else
-            render :json {
-            'Must be logged in to view stashes'
+            render json: {
+            notice: "Must be logged in to view stashes"
             }
         end
     end 
@@ -51,7 +40,7 @@ class Api::V1::StashesController < ApplicationController
         end
     
         def stash_params
-          params.require (:stash).permit(:user_id, article_ids: [], article_attributes: [:title, :category, :url, :content, :source_id])
+          params.require(:stash).permit(:user_id, article_ids: [], article_attributes: [:title, :category, :url, :content, :source_id])
         end
         
 end
