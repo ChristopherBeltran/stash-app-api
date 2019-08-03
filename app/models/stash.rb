@@ -3,6 +3,7 @@ class Stash < ActiveRecord::Base
     has_many :stash_articles
     has_many :articles, through: :stash_articles
     has_many :sources, through: :articles
+    accepts_nested_attributes_for :articles
 
 
     def article_attributes=(article_attributes)

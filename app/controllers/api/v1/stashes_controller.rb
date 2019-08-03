@@ -40,7 +40,7 @@ class Api::V1::StashesController < ApplicationController
         end
     
         def stash_params
-          params.require(:stash).permit(:user_id, article_ids: [], article_attributes: [:title, :category, :url, :content, :source_id])
+          params.require(:stash).permit(:user_id, article_attributes: [:title, :description, :url, :url_to_image, :author, :content, :source_id])
         end
         
 end
