@@ -12,10 +12,24 @@ class Stash < ActiveRecord::Base
                 article = Article.find(url: article_attributes[:url])
                 self.articles << article
             else
-            article = Article.create(article_attributes)
+            article = Article.create
+            source = Source.find(api_id: article_attributes[:source_api_id])
+            article.title = article_attributes[:title]
+            article.description = article_attributes[:description]
+            article.url = article_attributes[:url]
+            article.url_to_image = article_attributes[:url_to_image]
+            if article_attributes[:author] != "" || article_attributes[:author] != null
+                article.author = article_attributes[:author]
+            end 
+            article.content = article_attributes[:content]
+            article.source = source
+            article.save
             self.articles << article
             end 
         end 
     end 
 
 end 
+
+
+[:title, :description, :url, :url_to_image, :author, :content, :source_api_id])
