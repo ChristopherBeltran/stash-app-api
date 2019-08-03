@@ -1,7 +1,7 @@
 class Api::V1::StashesController < ApplicationController
     before_action :set_stream, only: [:update, :destroy]
 
-    def show
+    def get_stash
         if logged_in?
             @stash = current_user.stash
             render json: StashSerializer.new(@stash), status: :ok
@@ -35,7 +35,7 @@ class Api::V1::StashesController < ApplicationController
       end
     
       private
-        def set stash
+        def set_stash
           @stash = Stash.find(params[:id])
         end
     

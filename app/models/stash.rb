@@ -31,6 +31,3 @@ class Stash < ActiveRecord::Base
     end 
 
 end 
-
-
-[:title, :description, :url, :url_to_image, :author, :content, :source_api_id])
