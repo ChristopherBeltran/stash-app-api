@@ -5,7 +5,7 @@ class Api::V1::StreamsController < ApplicationController
 
 
   def create
-    @stream = current_user.stream.build(stream_params)
+    @stream = current_user.build_stream(stream_params)
     if @stream.save
       render json: StreamSerializer.new(@stream), status: :created
     else

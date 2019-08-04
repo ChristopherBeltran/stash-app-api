@@ -13,7 +13,7 @@ class Api::V1::StashesController < ApplicationController
     end 
     
     def create
-        @stash = current_user.stash.build(stash_params)
+        @stash = current_user.build_stash(stash_params)
 
         if @stash.save
             render json: StashSerializer.new(@stash), status: :created
@@ -34,7 +34,7 @@ class Api::V1::StashesController < ApplicationController
       end
 
       def remove_article
-        article = Article.find(stash_params[:article_id])
+        article = Article.find(params[:article_id])
         @stash.articles.delete(article)
         render json: StashSerializer.new(@stash), status: :ok
       end
