@@ -5,9 +5,9 @@ class Api::V1::StreamsController < ApplicationController
 
 
   def create
-    @stream = Stream.new(stream_params)
+    @stream = current_user.build_stream(stream_params)
     if @stream.save
-      render json: StreamSerializer.new(@stream), status: :ok
+      render json: StreamSerializer.new(@stream), status: :created
     else
       render json: @stream.errors, status: :unprocessable_entity
     end
@@ -43,7 +43,7 @@ class Api::V1::StreamsController < ApplicationController
     end
     formatted_ids = api_ids.join(",")
     api_key = ENV["NEWS_API_SECRET"]
-    response = HTTParty.get("https://newsapi.org/v2/top-headlines?sources=#{formatted_ids}&apiKey=#{api_key}")
+    response = HTTParty.get("https://newsapi.org/v2/top-headlines?sources=#{formatted_ids}&apiKey=#{api_key}&pageSize=100")
     render json: response, status: 200 
   end 
 

@@ -16,7 +16,7 @@ def create
     @article = Article.new(article_params)
 
     if @article.save
-      render :json ArticleSerializer.new(@article), status: :ok
+      render json: ArticleSerializer.new(@article), status: :ok
     else
       render json: @article.errors, status: :unprocessable_entity
     end
@@ -26,7 +26,7 @@ def create
   # PATCH/PUT /articles/1.json
   def update
     if @article.update(article_params)
-      render :show, status: :ok, location: @article
+      render json: ArticleSerializer.new(@article), status: :ok
     else
       render json: @article.errors, status: :unprocessable_entity
     end
@@ -40,6 +40,6 @@ def create
 
   private
     def article_params
-      params.require(:article).permit(:title, :category, :url, :content, :source_id)
+      params.require(:article).permit(:title, :url, :content, :url_to_image, :description, :published_at, :author, :source_id)
     end
 end 
