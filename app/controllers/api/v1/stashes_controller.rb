@@ -1,5 +1,5 @@
 class Api::V1::StashesController < ApplicationController
-    before_action :set_stream, only: [:update, :destroy]
+    before_action :set_stash, only: [:update, :destroy]
 
     def get_stash
         if logged_in?
