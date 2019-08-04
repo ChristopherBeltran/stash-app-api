@@ -1,5 +1,5 @@
 class Api::V1::StashesController < ApplicationController
-    before_action :set_stash, only: [:update, :destroy]
+    before_action :set_stash, only: [:update, :destroy, :remove_article]
 
     def get_stash
         if logged_in?
@@ -32,7 +32,13 @@ class Api::V1::StashesController < ApplicationController
           render json: @stash.errors, status: :unprocessable_entity
         end
       end
-    
+
+      def remove_article
+        article = Article.find(stash_params[:article_id])
+        @stash.articles.delete(article)
+        render json: StashSerializer.new(@stash), status: :ok
+      end
+
       def destroy
         @stash.destroy
       end
@@ -43,7 +49,7 @@ class Api::V1::StashesController < ApplicationController
         end
     
         def stash_params
-          params.require(:stash).permit(:user_id, article_attributes: [:title, :description, :url, :url_to_image, :author, :content, :source_api_id, :published_at])
+          params.require(:stash).permit(:article_id, article_attributes: [:title, :description, :url, :url_to_image, :author, :content, :source_api_id, :published_at])
         end
         
 end
