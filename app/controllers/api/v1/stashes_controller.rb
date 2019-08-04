@@ -13,10 +13,10 @@ class Api::V1::StashesController < ApplicationController
     end 
     
     def create
-        @stash = Stash.new(stash_params)
+        @stash = current_user.stash.build(stash_params)
 
         if @stash.save
-            render json: StashSerializer.new(@stash), status: :ok
+            render json: StashSerializer.new(@stash), status: :created
         else 
             render json: @stash.errors, status: :unprocessable_entity
         end 
@@ -24,9 +24,12 @@ class Api::V1::StashesController < ApplicationController
     
     def update
         if @stash.update(stash_params)
+          #options = {}
+          #options = { include: [:articles], fields: { article: [:title, :url] } }
+          #options[:include] = [@stash.articles, :'articles.title', :'articles.url', :'articles.url_to_image', :'articles.author', :'articles.content', :'articles.description', :'articles.published_at', :'articles.sources']
           render json: StashSerializer.new(@stash), status: :ok
         else
-          render json: stash.errors, status: :unprocessable_entity
+          render json: @stash.errors, status: :unprocessable_entity
         end
       end
     
