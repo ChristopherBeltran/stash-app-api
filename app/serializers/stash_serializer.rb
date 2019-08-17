@@ -9,7 +9,7 @@ class StashSerializer
       {
         id: article.id,
         url: article.url,
-        url_to_image: article.url_to_image,
+        urlToImage: article.url_to_image,
         title: article.title,
         description: article.description,
         content: article.content,
