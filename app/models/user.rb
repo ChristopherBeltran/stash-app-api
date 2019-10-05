@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
     validates :name, presence: true
     validates :email, presence: true
     validates :email, uniqueness: true
+    validates :password, :length => { :minimum => 8}
     before_save :fixname
   
     def fixname

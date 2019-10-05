@@ -21,7 +21,9 @@ class Api::V1::UsersController < ApplicationController
       render json: UserSerializer.new(@user), status: :ok
       session[:user_id] = @user.id
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { 
+        error: @user.errors
+      }, status: :unprocessable_entity
     end
   end
 
