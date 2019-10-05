@@ -7,9 +7,9 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
    allow do
-     origins 'https://the-stash-app.herokuapp.com'
+     origins 'https://stashapp.herokuapp.com'
 
-     resource 'https://stashapp.herokuapp.com',
+     resource 'https://the-stash-app.herokuapp.com',
        headers: :any,
        methods: [:get, :post, :put, :patch, :delete, :options, :head],
        credentials: true
