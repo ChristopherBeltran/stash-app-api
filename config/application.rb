@@ -23,7 +23,7 @@ module StashAppApi
       config.middleware.use ActionDispatch::Cookies
       config.middleware.use ActionDispatch::Session::CookieStore
       config.autoload_paths << Rails.root.join('lib')
-      config.middleware.insert_before 0, "Rack::Cors" do
+      config.middleware.insert_before 0, Rack::Cors do
         allow do
           origins '*'
           resource(
