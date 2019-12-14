@@ -25,7 +25,7 @@ module StashAppApi
       config.autoload_paths << Rails.root.join('lib')
       config.middleware.insert_before 0, Rack::Cors do
         allow do
-          origins 'https://stashapp.herokuapp.com'
+          origins Rails.application.credentials[Rails.env.to_sym][:allowed_origins]
           resource '*', :headers => :any, :methods => [:get, :patch, :put, :delete, :post, :options]            
         end
       end
