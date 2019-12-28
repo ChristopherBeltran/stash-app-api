@@ -2,10 +2,11 @@ require 'httparty'
 
 class Api::V1::StreamsController < ApplicationController
   before_action :set_stream, only: [:show, :update, :destroy, :get_stream]
+  before_action :set_user, only: [:create]
 
 
   def create
-    @stream = current_user.build_stream(stream_params)
+    @stream = @user.build_stream(stream_params)
     if @stream.save
       render json: StreamSerializer.new(@stream), status: :created
     else
@@ -58,6 +59,10 @@ class Api::V1::StreamsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_stream
       @stream = current_user.stream
+    end
+
+    def set_user
+      @user = User.find(params[:stream][:user_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
