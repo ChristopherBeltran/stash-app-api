@@ -1,5 +1,6 @@
 class Api::V1::StashesController < ApplicationController
     before_action :set_stash, only: [:update, :destroy, :remove_article]
+    before_action :set_user, only: [:update]
 
     def get_stash
         if logged_in?
@@ -47,9 +48,13 @@ class Api::V1::StashesController < ApplicationController
         def set_stash
           @stash = Stash.find(params[:id])
         end
+
+        def set_user
+          @user = User.find(params[:stash][:user_id])
+        end
     
         def stash_params
-          params.require(:stash).permit(:article_id, article_attributes: [:title, :description, :url, :url_to_image, :author, :content, :source_api_id, :published_at])
+          params.require(:stash).permit(:user_id, :article_id, article_attributes: [:title, :description, :url, :url_to_image, :author, :content, :source_api_id, :published_at])
         end
         
 end
