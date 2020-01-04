@@ -1,7 +1,7 @@
 require 'httparty'
 
 class Api::V1::StreamsController < ApplicationController
-  before_action :set_user, only: [:create, :update, :get_stream, :show, :destroy]
+  before_action :set_user, only: [:create, :update, :show, :destroy]
 
 
   def create
@@ -38,6 +38,7 @@ class Api::V1::StreamsController < ApplicationController
   end
 
   def get_stream
+    @user = User.find(params[:user_id])
     @stream = @user.stream
     api_ids = []
     @stream.sources.each do |source|
