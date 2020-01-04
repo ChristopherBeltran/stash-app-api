@@ -28,6 +28,7 @@ class Api::V1::StreamsController < ApplicationController
   # PATCH/PUT /streams/1
   # PATCH/PUT /streams/1.json
   def update
+    @stream = @user.stream
     if @stream.update(stream_params)
       options = {}
       options[:include] = [:sources, :'sources.name', :'sources.api_id', :'sources.url']
