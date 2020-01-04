@@ -1,6 +1,6 @@
 class Api::V1::StashesController < ApplicationController
     before_action :set_stash, only: [:update, :destroy, :remove_article]
-    before_action :set_user, only: [:update]
+    before_action :set_user, only: [:create, :update]
 
     def get_stash
         if logged_in?
@@ -14,7 +14,7 @@ class Api::V1::StashesController < ApplicationController
     end 
     
     def create
-        @stash = current_user.build_stash(stash_params)
+        @stash = @user.build_stash(stash_params)
 
         if @stash.save
             render json: StashSerializer.new(@stash), status: :created
