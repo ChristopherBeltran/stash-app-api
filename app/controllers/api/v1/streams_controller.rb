@@ -1,7 +1,7 @@
 require 'httparty'
 
 class Api::V1::StreamsController < ApplicationController
-  before_action :set_stream, only: [:show, :update, :destroy, :get_stream]
+  before_action :set_stream, only: [:show, :destroy, :get_stream]
   before_action :set_user, only: [:create, :update]
 
 
