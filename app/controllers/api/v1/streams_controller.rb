@@ -1,8 +1,7 @@
 require 'httparty'
 
 class Api::V1::StreamsController < ApplicationController
-  before_action :set_stream, only: [:show, :destroy, :get_stream]
-  before_action :set_user, only: [:create, :update]
+  before_action :set_user, only: [:create, :update, :get_stream, :show, :destroy]
 
 
   def create
@@ -16,7 +15,7 @@ class Api::V1::StreamsController < ApplicationController
 
   def show
     if logged_in?
-      @stream = current_user.stream
+      @stream = @user.stream
       render json: StreamSerializer.new(@stream), status: :ok
     else
       render json: {
@@ -39,6 +38,7 @@ class Api::V1::StreamsController < ApplicationController
   end
 
   def get_stream
+    @stream = @user.stream
     api_ids = []
     @stream.sources.each do |source|
       api_ids << source.api_id
@@ -53,6 +53,7 @@ class Api::V1::StreamsController < ApplicationController
   # DELETE /streams/1
   # DELETE /streams/1.json
   def destroy
+    @stream = @user.stream
     @stream.destroy
   end
 
