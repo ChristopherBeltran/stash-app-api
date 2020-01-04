@@ -3,14 +3,9 @@ class Api::V1::StashesController < ApplicationController
     before_action :set_user, only: [:create, :update]
 
     def get_stash
-        if logged_in?
-            @stash = current_user.stash
+            @user = User.find(params[:user_id])
+            @stash = @user.stash
             render json: StashSerializer.new(@stash), status: :ok
-        else
-            render json: {
-            notice: "Must be logged in to view stashes"
-            }
-        end
     end 
     
     def create
