@@ -1,14 +1,20 @@
 class Api::V1::SessionsController < ApplicationController
 
     def create
-      user = User.find_or_create_by(email: auth_params[:email])
-      if user.authenticate(auth_params[:password])
+      if User.exists?(email: auth_params[:email])
+        user = User.find_by(email: auth_params[:email])
+        if user.authenticate(auth_params[:password])
         #jwt = Auth.issue({user: user.id})
-        session[:user_id] = user.id
-        render json: UserSerializer.new(user), status: :ok
+          session[:user_id] = user.id
+          render json: UserSerializer.new(user), status: :ok
+        else
+          render json: {
+            error: 'Password incorrect. Please try again.'
+          }
+        end
       else
         render json: {
-          error: 'Invalid email or password'
+          error: 'No account associated with that email.  Try again or proceed to sign up.'
         }
       end
     end
