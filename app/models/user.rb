@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
     #has_many :articles, through: :stashes
     validates :name, presence: true
     validates :email, presence: true
+    validates :email, email: true
     validates :email, uniqueness: true
     validates :password, :length => { :minimum => 8}
     before_save :fixname
