@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :stashes
       resources :articles
       resources :sources
+      resources :password_resets
     end 
   end 
 end
