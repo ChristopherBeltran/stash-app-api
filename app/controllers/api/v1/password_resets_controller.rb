@@ -2,11 +2,17 @@ class Api::V1::PasswordResetsController < ApplicationController
 
     def create
         user = User.find_by_email(params[:email])
-        user.send_password_reset if user
-        render json: {
-            notice: 'Email sent with password reset instructions.'
-        }
-      end
+        if user
+          user.send_password_reset
+          render json: {
+              notice: 'Email sent with password reset instructions.'
+          }
+        else
+          render json: {
+            error: 'No email associated with that account'
+          }
+        end
+    end
 
       def edit
         @user = User.find_by_password_reset_token!(params[:id])
@@ -22,8 +28,6 @@ class Api::V1::PasswordResetsController < ApplicationController
           render json: {
               notice: 'Password has been reset.'
           }
-        else
-          render :edit
         end
       end
       
