@@ -9,7 +9,7 @@ class Api::V1::PasswordResetsController < ApplicationController
           }
         else
           render json: {
-            error: 'No email associated with that account'
+            reset: 'No email associated with that account'
           }
         end
     end
@@ -22,11 +22,15 @@ class Api::V1::PasswordResetsController < ApplicationController
         @user = User.find_by_password_reset_token!(params[:id])
         if @user.password_reset_sent_at < 2.hour.ago
           render json: {
-              error: 'Password reset has expired'
+              expired: 'Password reset has expired'
           }
         elsif @user.update(user_params)
           render json: {
-              notice: 'Password has been reset.'
+              success: 'Password has been reset.'
+          }
+        else
+          render json: {
+            error: 'Password invalid, try again.'
           }
         end
       end
