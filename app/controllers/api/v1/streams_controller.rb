@@ -24,6 +24,13 @@ class Api::V1::StreamsController < ApplicationController
     end 
   end
 
+  def stream_sources
+    @stream = Stream.find(params[:stream_id])
+    @sources = @stream.sources
+    render json: SourceSerializer.new(@sources), status: :ok
+  end 
+
+
   # PATCH/PUT /streams/1
   # PATCH/PUT /streams/1.json
   def update

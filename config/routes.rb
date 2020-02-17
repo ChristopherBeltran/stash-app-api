@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "/api/v1/get_stream/:user_id", to: "api/v1/streams#get_stream"
   get "/api/v1/get_stash/:user_id", to: "api/v1/stashes#get_stash"
   delete "/api/v1/stashes/:id/remove_article/:article_id", to: "api/v1/stashes#remove_article"
+  get "/api/v1/stream_sources/:stream_id", to: "api/v1/streams#stream_sources"
 
   namespace :api do
     namespace :v1 do 
