@@ -28,7 +28,20 @@ class Api::V1::StreamsController < ApplicationController
     @stream = Stream.find(params[:stream_id])
     @sources = @stream.sources
     render json: SourceSerializer.new(@sources), status: :ok
-  end 
+  end
+
+  def single_source
+    @stream = Stream.find(params[:stream_id])
+    @source = Source.find(params[:source_id])
+    if params[:update] = true
+      @stream << @source
+    else
+      @stream.delete(@source)
+    end
+  end
+
+
+
 
 
   # PATCH/PUT /streams/1
@@ -77,7 +90,7 @@ class Api::V1::StreamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stream_params
-      params.require(:stream).permit(:user_id, source_ids:[], source_api_ids:[])
+      params.require(:stream).permit(:user_id, source_ids:[], source_api_ids:[], :source_id, :update)
     end
 
 end
