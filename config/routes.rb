@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get "/api/v1/get_stash/:user_id", to: "api/v1/stashes#get_stash"
   delete "/api/v1/stashes/:id/remove_article/:article_id", to: "api/v1/stashes#remove_article"
   get "/api/v1/stream_sources/:stream_id", to: "api/v1/streams#stream_sources"
-  patch "/api/v1/update_single_source/:source_id", to: "api/v1/streams#single_source"
+  patch "/api/v1/update_single_source/:stream_id/:source_id/:update", to: "api/v1/streams#single_source"
 
   namespace :api do
     namespace :v1 do 
