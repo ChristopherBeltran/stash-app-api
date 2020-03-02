@@ -33,10 +33,14 @@ class Api::V1::StreamsController < ApplicationController
   def single_source
     @stream = Stream.find(params[:stream_id])
     @source = Source.find(params[:source_id])
-    if params[:update] = true
-      @stream << @source
+    if params[:update] == "true"
+      @stream.sources << @source
+      @sorted_sources = @stream.sources.sort
+      render json: SourceSerializer.new(@sorted_sources), status: :ok
     else
-      @stream.delete(@source)
+      @stream.sources.delete(@source)
+      @sorted_sources = @stream.sources.sort
+      render json: SourceSerializer.new(@sorted_sources), status: :ok
     end
   end
 
@@ -90,7 +94,7 @@ class Api::V1::StreamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stream_params
-      params.require(:stream).permit(:user_id, source_ids:[], source_api_ids:[], :source_id, :update)
+      params.require(:stream).permit(:user_id, :source_id, :update, source_ids:[], source_api_ids:[])
     end
 
 end
