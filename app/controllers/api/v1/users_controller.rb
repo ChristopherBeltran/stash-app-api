@@ -31,9 +31,7 @@ class Api::V1::UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     if @user.update(user_params)
-      render json: {
-        notice: "Successfully updated #{@user.name}"
-      }, status: :ok
+      render json: UserSerializer.new(@user), status: :ok
     else
       render json: @user.errors, status: :unprocessable_entity
     end
