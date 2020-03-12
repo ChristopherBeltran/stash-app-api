@@ -31,9 +31,7 @@ class Api::V1::UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     if @user.update(user_params)
-      render json: {
-        notice: "Successfully updated #{@user.name}"
-      }, status: :ok
+      render json: UserSerializer.new(@user), status: :ok
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -53,6 +51,6 @@ class Api::V1::UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :dark_mode)
     end
 end
